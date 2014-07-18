@@ -47,6 +47,7 @@
             if (xmlHttp.status === 200 && xmlHttp.readyState === 4) {
                 try {
                     var imdbInfo = JSON.parse(xmlHttp.responseText);
+                    console.log(imdbInfo);
                     showImdbRating(imdbInfo)
                 } catch (e) {
 
@@ -61,8 +62,15 @@
      * @param {Object} imdbInfo
      */
     function showImdbRating(imdbInfo) {
-        var title = document.querySelector('h1.maintitle');
-        title.innerHTML += ' <br/><img src="http://imdb.snick.ru/ratefor/03/' + imdbInfo.imdbID + '.png">';
+        var node = getRatingPlace();
+        node.innerHTML += '<a style="display: block; width: 102px;" href="http://www.imdb.com/title/' + imdbInfo.imdbID + '/" target="_blank" title="Всего голосов: '+ imdbInfo.imdbVotes +'"><img src="http://imdb.snick.ru/ratefor/03/' + imdbInfo.imdbID + '.png"></a>';
+    }
+
+    /**
+     * @returns {HTMLElement}
+     */
+    function getRatingPlace() {
+        return document.querySelector('h1.maintitle');
     }
 
     /**
